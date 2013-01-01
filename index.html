@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="stylesheet.css">
+		<script src="javascript.js"></script> 
+		<title>When Exactly Will I Die?</title>
+	</head>
+	<body>
+		<div id="container">
+			<div id="top">
+				<div id="prompt" class="show">
+					Please enter your birthday.
+				</div>
+				<div id="clock" class="hide">
+					<span id="days">
+						<div class="value"></div>
+						<div class="units">days</div>
+					</span>
+					<span id="hours">
+						<div class="value"></div>
+						<div class="units">hours</div>
+					</span>
+					<span id="minutes">
+						<div class="value"></div>
+						<div class="units">minutes</div>
+					</span>
+					<span id="seconds">
+						<div class="value"></div>
+						<div class="units">seconds</div>
+					</span>
+				</div>
+			</div>
+			<div id="bottom">
+				<div id="inputBoxes" class="show">
+					<input type="text" name="month" maxlength="2" placeholder="mm" />
+					<input type="text" name="day" maxlength="2" placeholder="dd" />
+					<input type="text" name="year" maxlength="4" placeholder="yyyy" />
+				</div>
+				<div id="explanation" class="hide">
+					This is your life. If you are anything like the average person, you have roughly <span class="explanationDays"></span> days remaining on this planet. That's it. Then it's all over. Make every single one of those days count, because this clock will never stop ticking.
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
