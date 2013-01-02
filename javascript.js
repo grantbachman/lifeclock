@@ -46,9 +46,9 @@ function showPrompt(){
 }
 function showClock(){
 	document.getElementById('clock').style.display = 'block';
-	setTimeout(function(){
+	//setTimeout(function(){
 		document.getElementById('explanation').style.display = 'block';
-	}, 2000);
+	//}, 2000);
 	document.getElementById('prompt').style.display = 'none';
 	document.getElementById('inputBoxes').style.display = 'none';
 }

@@ -1,52 +1,45 @@
 #container{
-	margin-left: auto;
-	margin-right: auto;
-	width: 900px;
+	margin: 0 auto;
+	width: 700px;
 	color: #444;
 }
 
-#top,#bottom {
-	height: 150px;
-	width: 100%;
+.centerDiv {
+	position: relative;
+	float: left;
+	left: 50%;
 }
-#top { margin-top: 100px;}
-#bottom { margin-top: 20px;}
+
+.outer { left: 50%; }
+.inner { left: -50%; }
+#top { margin-top: 100px; }
+#bottom { margin-top: 20px; }
+#top,#bottom { height: 150px; }
+.show { display: block; }
+.hide { display: none; }
 
 #clock, #prompt {
 	text-align: center;
 	font-size: 60px;
 	font-weight: bold;
-	margin: 0 auto;
 }
 
-.show { display: block; }
-.hide { display: none; }
-
 #clock span {
-	margin-left: auto;
 	float: left;
 	margin-right: 30px;
 }
 #clock .units {
 	font-size: 20px;
 	color: #999;
-	text-align: center;
 }
-#clock {
-	width: 535px;
-	margin: 0 auto;
-}
-#inputBoxes {
-	width: 525px;	
-	margin: 0 auto;
-}
-#explanation{
+
+#explanation {
 	text-align: center;
 	font-size: 25px;	
 	font-weight: bold;
 	width: 600px;
-	margin: 0 auto;
 }
+
 input[type="text"] {
 	height: 100px;
 	width: 155px;
