@@ -1,45 +1,46 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<link rel="stylesheet" type="text/css" href="stylesheet.css">
-		<script src="javascript.js"></script> 
-		<title>When Exactly Will I Die?</title>
-	</head>
-	<body>
-		<div id="container">
-			<div id="top" class="centerDiv outer">
-				<div id="prompt" class="show centerDiv inner">
-					Please enter your birthday.
-				</div>
-				<div id="clock" class="hide centerDiv inner">
-					<span id="days">
-						<div class="value"></div>
-						<div class="units">days</div>
-					</span>
-					<span id="hours">
-						<div class="value"></div>
-						<div class="units">hours</div>
-					</span>
-					<span id="minutes">
-						<div class="value"></div>
-						<div class="units">minutes</div>
-					</span>
-					<span id="seconds">
-						<div class="value"></div>
-						<div class="units">seconds</div>
-					</span>
-				</div>
+<head>
+	<link rel="stylesheet" type="text/css" href="assets/stylesheet.css">
+	<script src="assets/javascript.js"></script> 
+	<title></title>
+</head>
+<body>
+	<div id="container">
+		<div id="top" class="centerDiv outer">
+			<div id="prompt" class="show centerDiv inner">
+				please enter your birthday.
 			</div>
-			<div id="bottom" class="centerDiv outer">
-				<div id="inputBoxes" class="show centerDiv inner">
-					<input type="text" name="month" maxlength="2" placeholder="mm" />
-					<input type="text" name="day" maxlength="2" placeholder="dd" />
-					<input type="text" name="year" maxlength="4" placeholder="yyyy" />
-				</div>
-				<div id="explanation" class="hide centerDiv inner">
-					This is your life. If you are anything like the average person, you have roughly <span class="explanationDays"></span> days remaining on this planet. That's it. Then it's all over. Make every single one of those days count, because this clock will never stop ticking.
-				</div>
+			<div id="clock" class="hide centerDiv inner">
+				<span id="days">
+					<div class="value"></div>
+					<div class="units">days</div>
+				</span>
+				<span id="hours">
+					<div class="value"></div>
+					<div class="units">hours</div>
+				</span>
+				<span id="minutes">
+					<div class="value"></div>
+					<div class="units">minutes</div>
+				</span>
+				<span id="seconds">
+					<div class="value"></div>
+					<div class="units">seconds</div>
+				</span>
 			</div>
 		</div>
-	</body>
+		<div id="bottom" class="centerDiv outer">
+			<div id="inputBoxes" class="show centerDiv inner">
+				<input type="text" name="month" maxlength="2" onkeyup="return validate(event)" placeholder="mm" value="02" />
+				<input type="text" name="day" maxlength="2" onkeyup="return validate(event)" placeholder="dd" value="04" />
+				<input type="text" name="year" maxlength="4" onkeyup="return validate(event)" placeholder="yyyy" value="1989" />
+				<input id="submit" type="image" src="assets/right_arrow.png" onclick="return validate(event)" name="submit"  alt="submit" />
+			</div>
+			<div id="explanation" class="hide centerDiv inner">
+				this is your life. specifically, it's the number of days you have left before you will probably die, assuming the average american lifespan of 78 years. within these <span class="explanationdays"></span> days you must accomplish all of your goals, make all of your dreams come true, and experience everything this world has to offer. don't waste a single day, because you will never be able to get it back.
+			</div>
+		</div>
+	</div>
+</body>
 </html>

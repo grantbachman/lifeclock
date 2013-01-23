@@ -3,7 +3,12 @@ var msInMin = msInSec * 60;
 var msInHour = msInMin * 60;
 var msInDay = msInHour * 24;
 
-var lifespan = 78.2 // in years
+var lifespan = 78 // in years
+
+window.onload = function(){
+	toggleState();
+	window.clock = setInterval(function(){ tick() }, 25); 	
+};
 
 function tick(){
 	var values = getValues();
@@ -15,7 +20,7 @@ function tick(){
 	var deathDate = new Date(year + lifespan, month, day);
 	var ms = deathDate - new Date(); // number of milliseconds between now and most certain death
 
-	var days = Math.floor(ms / msInDay);
+	var days = addCommas(Math.floor(ms / msInDay));
 	ms %= msInDay;
 	var hours = Math.floor(ms / msInHour);
 	hours = addDigits(hours, 2);
@@ -39,6 +44,9 @@ function toggleState(flag){
 	document.getElementById('clock').style.display = state[1];
 	document.getElementById('explanation').style.display = state[1];
 }
+
+// regex copied from Stack Overflow: http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+function addCommas(num){ return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
 
 function addDigits(num, numDigits){
 	num = num.toString();

@@ -7,7 +7,6 @@
 .centerDiv {
 	position: relative;
 	float: left;
-	left: 50%;
 }
 
 .outer { left: 50%; }
@@ -34,9 +33,10 @@
 }
 
 #explanation {
-	text-align: center;
-	font-size: 25px;	
+	#text-align: center;
+	font-size: 20px;	
 	font-weight: bold;
+	line-height: 35px;
 	width: 600px;
 }
 
@@ -65,3 +65,5 @@ input[type="text"] {
 	font-size: 60px;
 	margin-right: 10px;
 }
+
+
