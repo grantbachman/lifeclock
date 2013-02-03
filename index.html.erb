@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="assets/stylesheet.css">
+		<link rel="shortcut icon" href="assets/favicon.ico" />
+		<link rel="stylesheet" type="text/css" href="assets/stylesheet.css" />
 		<script src="assets/javascript.js"></script> 
-		<title></title>
+		<title>Life Clock</title>
 	</head>
 	<body>
 		<div id="container">
 			<div id="top" class="centerDiv outer">
 				<div id="prompt" class="show centerDiv inner">
-					Please enter your <%= me %>
+					Please enter your birthday. 
 				</div>
 				<div id="clock" class="hide centerDiv inner">
 					<span id="days">
@@ -32,13 +33,25 @@
 			</div>
 			<div id="bottom" class="centerDiv outer">
 				<div id="inputBoxes" class="show centerDiv inner">
-					<input type="text" name="month" maxlength="2" onkeyup="return validate(event)" placeholder="mm" />
-					<input type="text" name="day" maxlength="2" onkeyup="return validate(event)" placeholder="dd" />
-					<input type="text" name="year" maxlength="4" onkeyup="return validate(event)" placeholder="yyyy" />
-					<input id="submit" type="image" src="assets/right_arrow.png" onclick="return validate(event)" name="submit"  alt="submit" />
+					<input type="text" name="month" maxlength="2" onkeyup="return validate(event)" placeholder="mm" value="" />
+					<input type="text" name="day" maxlength="2" onkeyup="return validate(event)" placeholder="dd" value="" />
+					<input type="text" name="year" maxlength="4" onkeyup="return validate(event)" placeholder="yyyy" value="" />
+					<button id="enter" onclick="return validate(event)" onkeyup="return validate(event)">Enter</button>
+				</div>
+				<div id="deathExplanation" class="hide centerDiv inner">
+					This is your life clock. It displays the number of days left until you turn 78, the life expectancy of the average American. The birthday you entered currently exceeds that age, which means you are playing with fire. Take advantage of every single day because you will never be able to get it back.
 				</div>
 				<div id="explanation" class="hide centerDiv inner">
-					This is your life, counting down to zero. If you are anything like the average person, you have roughly <span class="explanationDays"></span> days remaining on this planet. That's it. Then it's all over. Make every single one of those days count, because this clock will never stop ticking.
+					This is your life clock. It displays the number of days left until you turn 78, the life expectancy of the average American. Every second of every day for the rest of your life, this clock will be counting down. This means that when this clock hits zero you will probably be dead. But fear not! You still have <span class="explanationDays"></span> days left to enjoy everything this amazing world has to offer. Take advantage of every single day because you will never be able to get it back.
+				</div>
+			</div>
+			<div class="centerDiv outer">
+				<div id="reaction" class="hide centerDiv inner">
+					<form method="POST" action="/create">
+						<textarea id="reactionText" name="reaction" placeholder="How will you spend your remaining time?"></textarea>
+						<input type="text" id="formDays" name="days" />
+						<button type="submit">Submit</button>
+					</form>
 				</div>
 			</div>
 		</div>

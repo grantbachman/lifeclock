@@ -4,20 +4,16 @@ var msInHour = msInMin * 60;
 var msInDay = msInHour * 24;
 
 var lifespan = 78 // in years
-
 window.onload = function(){
-	toggleState();
-	window.clock = setInterval(function(){ tick() }, 25); 	
+	var values = getValues();
+	var month = values[0], day = values[1], year = values[2];
+	if((month >= 0) && (month < 12) && (day >= 1) && (day <= 31) && (year > 999)){		
+		toggleState();
+		window.clock = setInterval(function(){ tick() }, 25); 	
+	}
 };
 
-function tick(){
-	var values = getValues();
-	var month = values[0];
-	var day = values[1]; 
-	var year = values[2];
-
-	var birthDate = new Date(year, month, day);
-	var deathDate = new Date(year + lifespan, month, day);
+function tick(deathDate){
 	var ms = deathDate - new Date(); // number of milliseconds between now and most certain death
 
 	var days = addCommas(Math.floor(ms / msInDay));
@@ -31,8 +27,17 @@ function tick(){
 	var seconds = (ms / msInSec).toFixed(2);
 	seconds = addDigits(seconds, 5);
 
-	printValues(days, hours, minutes, seconds);
-	insertDays(days);
+
+	if(ms < 0){
+		// Ensure digits display zero for dates entered that would make the timer negative 
+		printValues(0,0,0,0);
+		window.clearInterval(clock);
+		document.getElementById('explanation').style.display = 'none';
+		document.getElementById('deathExplanation').style.display = 'block';
+	}else{
+		printValues(days, hours, minutes, seconds);
+		insertDays(days);
+	}
 	return false;
 }
 
@@ -43,6 +48,7 @@ function toggleState(flag){
 	document.getElementById('inputBoxes').style.display = state[0];
 	document.getElementById('clock').style.display = state[1];
 	document.getElementById('explanation').style.display = state[1];
+	document.getElementById('reaction').style.display = state[1];
 }
 
 // regex copied from Stack Overflow: http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
@@ -63,15 +69,16 @@ function getValues(){
 function validate(e){
 	var values = getValues();
 	var month = values[0], day = values[1], year = values[2];
-	if((month >= 0) && (month < 12) && (day >= 1) && (day <= 31) && (year > 999)){	
+	var birthDate = new Date(year, month, day);
+	var deathDate = new Date(year + lifespan, month, day);
+	var now = new Date();
+
+	if((birthDate < now) && (month >= 0) && (month < 12) && (day >= 1) && (day <= 31) && (year >= 1000)){	
 		// valid
-		document.getElementById('submit').classList.add('active');
-		if(e.keyCode == 13 || e.srcElement.type == "image"){
+		if(e.keyCode == 13 || e.type == 'click'){
 			toggleState();
-			window.clock = setInterval(function(){ tick() }, 25);	
+			window.clock = setInterval(function(){ tick(deathDate) }, 25);	
 		}
-	}else{
-		document.getElementById('submit').classList.remove('active');
 	}
 }
 
@@ -84,4 +91,10 @@ function printValues(days, hours, minutes, seconds){
 
 function insertDays(days){
 	document.getElementById('explanation').getElementsByClassName('explanationDays')[0].innerHTML = days;
+	document.getElementById('formDays').value = days;	
+}
+
+function submitReaction(){
+	alert(document.getElementById('reactionText').value);	
+	document.getElementById('reactionText').value = '';
 }

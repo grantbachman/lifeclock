@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="shortcut icon" href="assets/favicon.ico" />	
+		<link rel="stylesheet" type="text/css" href="assets/stylesheet.css" />
+		<script src="assets/javascript.js"></script> 
+		<title>Life Clock | Posts</title>
+	</head>
+<body>
+	<div id="posts">
+		<% posts.each do |post| %>
+			<div class="post">
+				<%= post['text'] %>
+			</div>
+		<% end %>
+	</div>
+
+
+
+</body>
+</html>
