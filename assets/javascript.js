@@ -1,17 +1,44 @@
-var msInSec = 1000;
-var msInMin = msInSec * 60;
-var msInHour = msInMin * 60;
-var msInDay = msInHour * 24;
+if(window.location.pathname == '/')
+{
+	function validateBirth(e){
+		var month = document.getElementsByName('month')[0].value
+		var day = document.getElementsByName('day')[0].value		
+		var year = document.getElementsByName('year')[0].value	
 
-var lifespan = 78 // in years
-window.onload = function(){
-	var values = getValues();
-	var month = values[0], day = values[1], year = values[2];
-	if((month >= 0) && (month < 12) && (day >= 1) && (day <= 31) && (year > 999)){		
-		toggleState();
-		window.clock = setInterval(function(){ tick() }, 25); 	
+		if(month.length == 2 && day.length == 2 && year.length == 4 &&
+			month >= "01" && month <= "12" &&
+			day >= "01" && day <= "31" &&
+			year >= "1000") {
+			return true;
+		} return false;
 	}
-};
+}
+
+
+
+if(window.location.pathname.match(/\d{8}/)){
+	var msInSec = 1000;
+	var msInMin = msInSec * 60;
+	var msInHour = msInMin * 60;
+	var msInDay = msInHour * 24;
+
+	var lifespan = 78 // in years
+
+	window.onload = function(){
+		var values = getValues();
+		var month = values[0] - 1, day = values[1], year = values[2];
+		var birthDate = new Date(year, month, day)
+		var deathDate = new Date(parseInt(year) + lifespan, month, day)
+		window.clock = setInterval(function(){ tick(deathDate) }, 25); 	
+	};
+
+	function validateReaction(e){
+		var reaction = document.getElementById('reactionText').value
+		if(/[a-zA-Z]/.test(reaction)){
+			return true; } return false;
+	}
+
+}
 
 function tick(deathDate){
 	var ms = deathDate - new Date(); // number of milliseconds between now and most certain death
@@ -41,16 +68,6 @@ function tick(deathDate){
 	return false;
 }
 
-function toggleState(flag){
-	var state = ['none', 'block'];
-	if(flag == -1){ state[0] = state.splice(1,1,state[0])[0]; } // swap values
-	document.getElementById('prompt').style.display = state[0];
-	document.getElementById('inputBoxes').style.display = state[0];
-	document.getElementById('clock').style.display = state[1];
-	document.getElementById('explanation').style.display = state[1];
-	document.getElementById('reaction').style.display = state[1];
-}
-
 // regex copied from Stack Overflow: http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
 function addCommas(num){ return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
 
@@ -61,25 +78,11 @@ function addDigits(num, numDigits){
 }
 
 function getValues(){
-	var month = parseInt(document.getElementsByName('month')[0].value) - 1;
-	var day = parseInt(document.getElementsByName('day')[0].value);
-	var year = parseInt(document.getElementsByName('year')[0].value);
+	var path = window.location.pathname
+	var month = path.slice(1,3)
+	var day = path.slice(3,5)
+	var year = path.slice(5,9)
 	return new Array(month, day, year);
-}
-function validate(e){
-	var values = getValues();
-	var month = values[0], day = values[1], year = values[2];
-	var birthDate = new Date(year, month, day);
-	var deathDate = new Date(year + lifespan, month, day);
-	var now = new Date();
-
-	if((birthDate < now) && (month >= 0) && (month < 12) && (day >= 1) && (day <= 31) && (year >= 1000)){	
-		// valid
-		if(e.keyCode == 13 || e.type == 'click'){
-			toggleState();
-			window.clock = setInterval(function(){ tick(deathDate) }, 25);	
-		}
-	}
 }
 
 function printValues(days, hours, minutes, seconds){
@@ -92,9 +95,4 @@ function printValues(days, hours, minutes, seconds){
 function insertDays(days){
 	document.getElementById('explanation').getElementsByClassName('explanationDays')[0].innerHTML = days;
 	document.getElementById('formDays').value = days;	
-}
-
-function submitReaction(){
-	alert(document.getElementById('reactionText').value);	
-	document.getElementById('reactionText').value = '';
 }

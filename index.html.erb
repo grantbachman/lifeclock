@@ -8,52 +8,26 @@
 	</head>
 	<body>
 		<div id="container">
+			<div id="main">
 			<div id="top" class="centerDiv outer">
 				<div id="prompt" class="show centerDiv inner">
 					Please enter your birthday. 
 				</div>
-				<div id="clock" class="hide centerDiv inner">
-					<span id="days">
-						<div class="value"></div>
-						<div class="units">days</div>
-					</span>
-					<span id="hours">
-						<div class="value"></div>
-						<div class="units">hours</div>
-					</span>
-					<span id="minutes">
-						<div class="value"></div>
-						<div class="units">minutes</div>
-					</span>
-					<span id="seconds">
-						<div class="value"></div>
-						<div class="units">seconds</div>
-					</span>
-				</div>
 			</div>
 			<div id="bottom" class="centerDiv outer">
+				<form method="POST" action="/clock">
 				<div id="inputBoxes" class="show centerDiv inner">
-					<input type="text" name="month" maxlength="2" onkeyup="return validate(event)" placeholder="mm" value="" />
-					<input type="text" name="day" maxlength="2" onkeyup="return validate(event)" placeholder="dd" value="" />
-					<input type="text" name="year" maxlength="4" onkeyup="return validate(event)" placeholder="yyyy" value="" />
-					<button id="enter" onclick="return validate(event)" onkeyup="return validate(event)">Enter</button>
+					<input type="text" name="month" maxlength="2" placeholder="mm" onkeyup="return validateBirth(event)" />
+					<input type="text" name="day" maxlength="2" placeholder="dd" onkeyup="return validateBirth(event)" />
+					<input type="text" name="year" maxlength="4" placeholder="yyyy" onkeyup="return validateBirth(event)" />
+					<button type="submit" id="enter" onclick="return validateBirth(event)" onkeyup="return validateBirth(event)">Enter</button>
 				</div>
-				<div id="deathExplanation" class="hide centerDiv inner">
-					This is your life clock. It displays the number of days left until you turn 78, the life expectancy of the average American. The birthday you entered currently exceeds that age, which means you are playing with fire. Take advantage of every single day because you will never be able to get it back.
-				</div>
-				<div id="explanation" class="hide centerDiv inner">
-					This is your life clock. It displays the number of days left until you turn 78, the life expectancy of the average American. Every second of every day for the rest of your life, this clock will be counting down. This means that when this clock hits zero you will probably be dead. But fear not! You still have <span class="explanationDays"></span> days left to enjoy everything this amazing world has to offer. Take advantage of every single day because you will never be able to get it back.
-				</div>
-			</div>
-			<div class="centerDiv outer">
-				<div id="reaction" class="hide centerDiv inner">
-					<form method="POST" action="/create">
-						<textarea id="reactionText" name="reaction" placeholder="How will you spend your remaining time?"></textarea>
-						<input type="text" id="formDays" name="days" />
-						<button type="submit">Submit</button>
-					</form>
-				</div>
+			</form>
 			</div>
 		</div>
+		</div>
+		<footer>
+			<a href="http://grantbachman.com/about">Grant David Bachman</a>
+		</footer>
 	</body>
 </html>

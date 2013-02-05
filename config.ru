@@ -2,41 +2,31 @@ require 'rack'
 require 'erb'
 require 'pg'
 
-class Filter
-	def initialize(app)
-		@app = app
-	end
-
-	def call(env)
-		status, headers, body = @app.call(env)
-		swears = %w(fuck shit cunt pussy dick damn cock)
-		body.each do |x|
-			swears.each do |word|
-				stars = ''
-				(word.length-2).times { stars << '*' }
-				new_swear = word[0] + stars + word[-1]
-				x.gsub!(/#{word}/, new_swear)
-			end
-		end
-		[status, headers, body]
-	end
-end
-
 class MyApp
 	def self.call(env)	
 		req = Rack::Request.new(env)
-		puts env['posted'].inspect
 		case req.path 
 			when '/'
 				file = ERB.new(File.read('index.html.erb')).result(binding)
 				return [200, {"Content-Type" => "text/html"}, [file]]
+			when '/clock'
+				if req.post?
+					string = req.params['month'] << req.params['day'] << req.params['year']
+					response = Rack::Response.new
+					response.redirect("/#{string}")
+					response.finish
+				end
+			when /\d{8}/ 
+				file = ERB.new(File.read('clock.html.erb')).result(binding)	
+				return [200, {"Content-Type" => "text/html"}, [file]]
 			when '/create'
 				if req.post?	
 					text = req.params['reaction']
+					days = req.params['days']
 					# remove HTML tags and replace carriage returns with <br />
 					text.gsub(/<\/?[^>]*>/, '').gsub!(/(\r\n)+/,"<br />")
 					conn = PG::Connection.new(:dbname => 'doomsday', :host => 'localhost', :port => 5432)
-					insert = conn.exec('INSERT INTO reactions (text) VALUES ($1)', [text])
+					insert = conn.exec('INSERT INTO reactions (text,days) VALUES ($1,$2)', [text, days])
 					conn.finish
 					# post/redirect/get -- prevent from double posting with refresh
 					response = Rack::Response.new

@@ -1,7 +1,14 @@
+html,body { height: 100%; }
+
 #container{
 	margin: 0 auto;
 	width: 700px;
 	color: #444;
+	min-height: 100%;
+}
+#main {
+	overflow: hidden;
+	padding-bottom: 150px;
 }
 
 .centerDiv {
@@ -41,8 +48,13 @@
 
 #enter {
 	margin-top: 30px;
+	display:block;
+}
+#submit {
+	float: right;
 }
 textarea { 
+	display: block;
 	color: #444;
 	margin: 0 auto;
 	height: 100px;
@@ -53,7 +65,6 @@ textarea {
 #formDays { display: none; }
 
 button {
-	display: block;
 	margin: 0 auto;
 	font-size: 12px;
 	color: #444;
@@ -87,11 +98,40 @@ input[name="year"] {
 	width: 500px;
 	font-size: 18px;
 	color: #444;
+	min-height: 100%;
 }
 
 .post {
 	padding: 20px 0;
 	border-bottom: 1px solid #ddd;
 }
+.pretext {
+	font-size: 12px;
+	color: #999;
+	margin-bottom: 15px;
+}
 
+#postsLink {
+	color: #999;
+	float: left;	
+	margin-top: 12px;	
+}
+#postsLink:hover {
+	color: #444;
+	text-decoration: underline;
+}
 
+footer {
+	text-align: center;
+	height: 50px;
+	margin-top: -50px;
+	clear: both;
+}
+footer a {
+	color: #999;
+	text-decoration: none;
+}
+footer a:hover{
+	color: #444;
+	text-decoration: underline;
+}

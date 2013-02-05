@@ -8,14 +8,18 @@
 	</head>
 <body>
 	<div id="posts">
-		<% posts.each do |post| %>
-			<div class="post">
-				<%= post['text'] %>
-			</div>
-		<% end %>
+		<div id="main">
+			<% posts.each do |post| %>
+				<div class="post">
+					<div class="pretext"><%= post['days'] %> days writes:</div>
+					<%= post['text'] %>
+				</div>
+			<% end %>
+		</div>
 	</div>
-
-
+	<footer>
+		<a href="http://grantbachman.com/about">Grant David Bachman</a>
+	</footer>
 
 </body>
 </html>
