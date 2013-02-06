@@ -1,7 +1,3 @@
-require 'rack'
-require 'erb'
-require 'pg'
-
 class MyApp
 
 	@header = {"Content-Type" => "text/html"}
