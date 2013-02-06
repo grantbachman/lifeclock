@@ -2,7 +2,7 @@ class MyApp
 
 	@header = {"Content-Type" => "text/html"}
 	@not_found = [404, @header, ["Not found"]]
-
+	
 	def self.call(env)	
 		req = Rack::Request.new(env)
 		case req.path 
@@ -25,7 +25,9 @@ class MyApp
 					text, days = req.params['reaction'], req.params['days']
 					# remove HTML tags and replace carriage returns with <br />
 					text.gsub(/<\/?[^>]*>/, '').gsub!(/(\r\n)+/,"<br />")
-					conn = PG::Connection.new(:dbname => 'doomsday', :host => 'localhost', :port => 5432)
+					conn = PG::Connection.new(	:dbname => ENV['dbname'],
+											  	:host => ENV['host'],
+											  	:port => ENV['port'])
 					insert = conn.exec('INSERT INTO reactions (text,days) VALUES ($1,$2)', [text, days])
 					conn.finish
 					# post/redirect/get -- prevent from double posting with refresh
@@ -35,7 +37,9 @@ class MyApp
 					@not_found
 				end
 			when '/posts'
-				conn = PG::Connection.new(:dbname => 'doomsday', :host => 'localhost', :port => 5432)
+				conn = PG::Connection.new(	:dbname => ENV['dbname'],
+											:host => ENV['host'],
+											:port => ENV['port'])
 				posts = conn.exec('SELECT * FROM reactions')
 				file = ERB.new(File.read('posts.html.erb')).result(binding)
 				posts.clear
@@ -49,6 +53,5 @@ class MyApp
 end
 
 use Rack::Static, urls: ['/assets']
-#use Filter
 run MyApp
 
