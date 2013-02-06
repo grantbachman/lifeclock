@@ -24,7 +24,7 @@ if(window.location.pathname.match(/\d{8}/)){
 
 	var lifespan = 78 // in years
 
-	window.onload = function(){
+		window.onload = function(){
 		var values = getValues();
 		var month = values[0] - 1, day = values[1], year = values[2];
 		var birthDate = new Date(year, month, day)
@@ -54,16 +54,16 @@ function tick(deathDate){
 	var seconds = (ms / msInSec).toFixed(2);
 	seconds = addDigits(seconds, 5);
 
-
+	insertDays(days);
+	printValues(days, hours, minutes, seconds);
+	
 	if(ms < 0){
 		// Ensure digits display zero for dates entered that would make the timer negative 
 		printValues(0,0,0,0);
+		insertDays(0);
 		window.clearInterval(clock);
 		document.getElementById('explanation').style.display = 'none';
 		document.getElementById('deathExplanation').style.display = 'block';
-	}else{
-		printValues(days, hours, minutes, seconds);
-		insertDays(days);
 	}
 	return false;
 }
