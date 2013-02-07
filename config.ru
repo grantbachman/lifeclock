@@ -33,7 +33,7 @@ class MyApp
 					text.gsub(/<\/?[^>]*>/, '').gsub!(/(\r\n)+/,"<br />")
 					conn = PG::Connection.new(@conn_hash)
 					insert = conn.exec('INSERT INTO reactions (text,days) VALUES ($1,$2)', [text, days])
-					conn.finish
+					conn.close
 					# post/redirect/get -- prevent from double posting with refresh
 					@header["Location"] = "/posts"
 					[302, @header, []]
@@ -45,6 +45,7 @@ class MyApp
 				posts = conn.exec('SELECT * FROM reactions')
 				file = ERB.new(File.read('posts.html.erb')).result(binding)
 				posts.clear
+				conn.close
 				[200, @header, [file]]
 			else
 				@not_found	
